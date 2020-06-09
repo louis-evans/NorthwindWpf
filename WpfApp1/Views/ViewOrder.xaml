@@ -55,7 +55,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <TextBlock Grid.Row="2" FontSize="18">Line Items</TextBlock>
+        <TextBlock Grid.Row="2" FontSize="18">Line Items:</TextBlock>
         <DataGrid Name="LstLineItems" Grid.Row="3" ItemsSource="{Binding Path=LineItems}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=ProductName, Mode=OneWay}" Header="Product" Width="3*"/>
