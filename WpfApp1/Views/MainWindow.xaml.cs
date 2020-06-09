@@ -1,8 +1,6 @@
 ﻿using SecPlus;
 using System;
-using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 
 namespace NorthwindWpf.Views
 {
@@ -18,10 +16,6 @@ namespace NorthwindWpf.Views
             InitializeComponent();
 
             _ctx = new NorthwindEntities();
-
-            //CmbCustomers.DisplayMemberPath = "CompanyName";
-            //CmbCustomers.SelectedValuePath = "CustomerID";
-            //CmbCustomers.ItemsSource = _ctx.Customers.Select(c => new { c.CompanyName, c.CustomerID }).ToArray();
         }
 
         protected override void OnClosed(EventArgs e)

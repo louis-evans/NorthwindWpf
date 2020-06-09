@@ -1,18 +1,9 @@
 ﻿using SecPlus;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using NorthwindWpf.ViewModels;
 
 namespace NorthwindWpf.Views
@@ -80,33 +71,6 @@ namespace NorthwindWpf.Views
                 var discountTotal = (float)netTotal * discount;
                 return (float)netTotal - discountTotal;
             }
-        }
-    }
-}
-
-namespace NorthwindWpf.ViewModels
-{
-    public class ViewOrderViewModel
-    {
-        public int OrderID { get; internal set; }
-        public string CustomerName { get; internal set; }
-        public string OrderDate { get; internal set; }
-        public string RequiredDate { get; internal set; }
-        public string ShipMethod { get; internal set; }
-        public string ShipDate { get; internal set; }
-
-        public IEnumerable<LineItemModel> LineItems { get; set; }
-
-        public class LineItemModel
-        {
-            public string ProductName { get; internal set; }
-            public decimal UnitPrice { get; internal set; }
-            public int Qty { get; internal set; }
-            public float Discount { get; internal set; }
-            public float TotalPrice { get; internal set; }
-            public string UnitPriceDisplay => UnitPrice.ToString("N2");
-            public string DiscountDisplay => (Discount * 100).ToString("0.##");
-            public string TotalPriceDisplay => TotalPrice.ToString("N2");
         }
     }
 }

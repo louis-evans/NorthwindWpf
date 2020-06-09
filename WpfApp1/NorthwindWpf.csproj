@@ -171,6 +171,7 @@
     <Compile Include="Territory.cs">
       <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ViewOrderViewModel.cs" />
     <Compile Include="Views\ViewOrder.xaml.cs">
       <DependentUpon>ViewOrder.xaml</DependentUpon>
     </Compile>
