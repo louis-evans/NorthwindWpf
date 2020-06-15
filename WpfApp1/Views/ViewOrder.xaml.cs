@@ -2,17 +2,15 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using NorthwindWpf.ViewModels;
 
 namespace NorthwindWpf.Views
 {
-    /// <summary>
-    /// Interaction logic for ViewOrder.xaml
-    /// </summary>
     public partial class ViewOrder : Window
     {
+        private const string DATE_FORMAT = "dd/MM/yyyy";
+
         public int OrderId { get; private set; }
 
         private readonly NorthwindEntities _ctx;
@@ -33,36 +31,29 @@ namespace NorthwindWpf.Views
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var orderTask = _ctx.Orders
+            var order = await _ctx.Orders
                 .Include(o => o.Customer)
                 .Include(o => o.Shipper)
+                .Include(o => o.Order_Details)
+                .Include(o => o.Order_Details.Select(d => d.Product))
                 .SingleAsync(o => o.OrderID == OrderId);
-
-            var lineItemTask = _ctx.Order_Details
-                .Include(x => x.Product)
-                .Where(x => x.OrderID == OrderId)
-                .ToArrayAsync();
-
-            await Task.WhenAll(orderTask, lineItemTask);
-
 
             DataContext = new ViewOrderViewModel
             {
-                OrderID = orderTask.Result.OrderID,
-                CustomerName = orderTask.Result.Customer.CompanyName,
-                OrderDate = orderTask.Result.OrderDate?.ToString("dd/MM/yyyy") ?? "",
-                RequiredDate = orderTask.Result.RequiredDate?.ToString("dd/MM/yyyy") ?? "",
-                ShipMethod = orderTask.Result.Shipper.CompanyName,
-                ShipDate = orderTask.Result.ShippedDate?.ToString("dd/MM/yyyy") ?? "",
-                LineItems = lineItemTask.Result.Select(x => new ViewOrderViewModel.LineItemModel
+                OrderID = order.OrderID,
+                CustomerName = order.Customer.CompanyName,
+                OrderDate = order.OrderDate?.ToString(DATE_FORMAT) ?? "",
+                RequiredDate = order.RequiredDate?.ToString(DATE_FORMAT) ?? "",
+                ShipMethod = order.Shipper.CompanyName,
+                ShipDate = order.ShippedDate?.ToString(DATE_FORMAT) ?? "",
+                LineItems = order.Order_Details.Select(x => new ViewOrderViewModel.LineItemModel
                 {
                     ProductName = x.Product.ProductName,
                     UnitPrice = x.UnitPrice,
                     Qty = x.Quantity,
                     Discount = x.Discount,
                     TotalPrice = calculateFinalPrice(x.UnitPrice, x.Quantity, x.Discount)
-                })
-                
+                })                
             };
 
             float calculateFinalPrice(decimal unitPrice, int qty, float discount)
