@@ -1,6 +1,7 @@
-﻿using SecPlus;
+﻿using Northwind.Data;
 using System;
 using System.Windows;
+using WpfApp1.Views;
 
 namespace NorthwindWpf.Views
 {
@@ -26,12 +27,12 @@ namespace NorthwindWpf.Views
 
         private void BtnViewOrders_Click(object sender, RoutedEventArgs e)
         {
-            new ViewOrders().ShowDialog();
+            new ViewOrdersWindow().ShowDialog();
         }
 
         private void BtnNewOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            new OrderEntryWindow().ShowDialog();
         }
     }
 }

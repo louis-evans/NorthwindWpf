@@ -67,117 +67,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Alphabetical_list_of_product.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Category.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Category_Sales_for_1997.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Current_Product_List.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Customer.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerDemographic.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Customer_and_Suppliers_by_City.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CustOrderHist_Result.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CustOrdersDetail_Result.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CustOrdersOrders_Result.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Employee.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Employee_Sales_by_Country_Result.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Invoice.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Northwind.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Order.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Orders_Qry.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Order_Detail.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Order_Details_Extended.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Order_Subtotal.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Products_Above_Average_Price.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Products_by_Category.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product_Sales_for_1997.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Region.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SalesByCategory_Result.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sales_by_Category.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sales_by_Year_Result.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sales_Totals_by_Amount.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Shipper.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Summary_of_Sales_by_Quarter.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Summary_of_Sales_by_Year.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Supplier.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ten_Most_Expensive_Products_Result.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Territory.cs">
-      <DependentUpon>Northwind.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ViewOrderViewModel.cs" />
-    <Compile Include="Views\ViewOrder.xaml.cs">
-      <DependentUpon>ViewOrder.xaml</DependentUpon>
+    <Compile Include="Views\AddItemWindow.xaml.cs">
+      <DependentUpon>AddItemWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ViewOrders.xaml.cs">
-      <DependentUpon>ViewOrders.xaml</DependentUpon>
+    <Compile Include="Views\OrderEnrtyWindow.xaml.cs">
+      <DependentUpon>OrderEnrtyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewOrderWindow.xaml.cs">
+      <DependentUpon>ViewOrderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewOrdersWindow.xaml.cs">
+      <DependentUpon>ViewOrdersWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\AddItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -190,26 +97,20 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ViewOrder.xaml">
+    <Page Include="Views\OrderEnrtyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ViewOrders.xaml">
+    <Page Include="Views\ViewOrderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewOrdersWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Northwind.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Northwind.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Northwind.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Northwind.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -227,13 +128,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Northwind.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Northwind.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Northwind.edmx.diagram">
-      <DependentUpon>Northwind.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -247,18 +141,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Northwind.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Northwind.edmx</DependentUpon>
-      <LastGenOutput>Northwind.Context.cs</LastGenOutput>
-      <CustomToolNamespace>SecPlus</CustomToolNamespace>
-    </Content>
-    <Content Include="Northwind.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Northwind.edmx</DependentUpon>
-      <LastGenOutput>Northwind.cs</LastGenOutput>
-      <CustomToolNamespace>SecPlus</CustomToolNamespace>
-    </Content>
+    <ProjectReference Include="..\NorthwindWpf.Data\NorthwindWpf.Data.csproj">
+      <Project>{5a11e158-40d6-4de9-bfa9-691040eaf72d}</Project>
+      <Name>NorthwindWpf.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

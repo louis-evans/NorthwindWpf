@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindWpf", "WpfApp1\NorthwindWpf.csproj", "{1D2AFC14-B861-469B-8212-8325B087CDBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindWpf.Data", "NorthwindWpf.Data\NorthwindWpf.Data.csproj", "{5A11E158-40D6-4DE9-BFA9-691040EAF72D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1D2AFC14-B861-469B-8212-8325B087CDBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D2AFC14-B861-469B-8212-8325B087CDBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D2AFC14-B861-469B-8212-8325B087CDBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A11E158-40D6-4DE9-BFA9-691040EAF72D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A11E158-40D6-4DE9-BFA9-691040EAF72D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A11E158-40D6-4DE9-BFA9-691040EAF72D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A11E158-40D6-4DE9-BFA9-691040EAF72D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

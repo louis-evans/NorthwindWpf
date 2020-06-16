@@ -1,0 +1,23 @@
+﻿<Window x:Class="WpfApp1.Views.AddItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.Views"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="Add Item" 
+        Height="300"
+        Width="400"
+        ResizeMode="NoResize"
+        >
+    <Grid Margin="10">
+        <StackPanel>
+            <Label>Product:</Label>
+            <ComboBox Name="CmbCustomers" SelectionChanged="CmbCustomers_Selected"></ComboBox>
+            <Label>Quatity:</Label>
+            <TextBox Name="TxtQty" InputScope="Number" TextChanged="TxtQty_TextChanged"></TextBox>
+        </StackPanel>
+        <Button VerticalAlignment="Bottom" Width="100" HorizontalAlignment="Right" Click="OnSubmit">Submit</Button>
+    </Grid>
+</Window>
