@@ -120,6 +120,8 @@
     <Compile Include="Order_Subtotal.cs">
       <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partials\Customer.cs" />
+    <Compile Include="Partials\Shipper.cs" />
     <Compile Include="Product.cs">
       <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
@@ -137,6 +139,7 @@
       <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\NorthwindRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\ShipperRepository.cs" />

@@ -5,43 +5,43 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e10a8bba9a114a08aa1962a72d7f85ac" Name="Diagram1">
-        <EntityTypeShape EntityType="SecPlus.Category" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.CustomerDemographic" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Customer" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Employee" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Order_Detail" Width="1.5" PointX="7.5" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Order" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Product" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Region" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Shipper" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Supplier" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Territory" Width="1.5" PointX="8" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Alphabetical_list_of_product" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Category_Sales_for_1997" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Current_Product_List" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Customer_and_Suppliers_by_City" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Invoice" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Order_Details_Extended" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Order_Subtotal" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Orders_Qry" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Product_Sales_for_1997" Width="1.5" PointX="5.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Products_Above_Average_Price" Width="1.5" PointX="7.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Products_by_Category" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Sales_by_Category" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Sales_Totals_by_Amount" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Summary_of_Sales_by_Quarter" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SecPlus.Summary_of_Sales_by_Year" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
-        <AssociationConnector Association="SecPlus.FK_Products_Categories" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.FK_Orders_Customers" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.FK_Employees_Employees" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.FK_Orders_Employees" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.FK_Order_Details_Orders" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.FK_Order_Details_Products" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.FK_Orders_Shippers" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.FK_Products_Suppliers" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.FK_Territories_Region" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.CustomerCustomerDemo" ManuallyRouted="false" />
-        <AssociationConnector Association="SecPlus.EmployeeTerritories" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Northwind.Data.Category" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.CustomerDemographic" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Customer" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Employee" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Order_Detail" Width="1.5" PointX="7.5" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Order" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Product" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Region" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Shipper" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Supplier" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Territory" Width="1.5" PointX="8" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Alphabetical_list_of_product" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Category_Sales_for_1997" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Current_Product_List" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Customer_and_Suppliers_by_City" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Invoice" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Order_Details_Extended" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Order_Subtotal" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Orders_Qry" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Product_Sales_for_1997" Width="1.5" PointX="5.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Products_Above_Average_Price" Width="1.5" PointX="7.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Products_by_Category" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Sales_by_Category" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Sales_Totals_by_Amount" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Summary_of_Sales_by_Quarter" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Northwind.Data.Summary_of_Sales_by_Year" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="Northwind.Data.FK_Products_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.FK_Orders_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.FK_Employees_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.FK_Orders_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.FK_Order_Details_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.FK_Order_Details_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.FK_Orders_Shippers" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.FK_Products_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.FK_Territories_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.CustomerCustomerDemo" ManuallyRouted="false" />
+        <AssociationConnector Association="Northwind.Data.EmployeeTerritories" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

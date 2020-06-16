@@ -4,22 +4,10 @@ using System.Linq;
 
 namespace NorthwindWpf.Data.Repositories
 {
-    public class CustomerRepository : IDisposable
+    public class CustomerRepository : NorthwindRepository
     {
-        private readonly NorthwindEntities _ctx;
+        public IQueryable<Customer> GetAll() => NorthwindContext.Customers;
 
-        public CustomerRepository()
-        {
-            _ctx = new NorthwindEntities();
-        }
-
-        public IQueryable<Customer> GetAll() => _ctx.Customers;
-
-        public Customer GetById(int id) => _ctx.Customers.Find(id);
-
-        public void Dispose()
-        {
-            _ctx.Dispose();
-        }
+        public Customer GetById(int id) => NorthwindContext.Customers.Find(id);
     }
 }

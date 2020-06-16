@@ -1,25 +1,12 @@
 ﻿using Northwind.Data;
-using System;
 using System.Linq;
 
 namespace NorthwindWpf.Data.Repositories
 {
-    public class ShipperRepository : IDisposable
+    public class ShipperRepository : NorthwindRepository
     {
-        private readonly NorthwindEntities _ctx;
+        public IQueryable<Shipper> GetAll() => NorthwindContext.Shippers;
 
-        public ShipperRepository()
-        {
-            _ctx = new NorthwindEntities();
-        }
-
-        public IQueryable<Shipper> GetAll() => _ctx.Shippers;
-
-        public Shipper GetById(int id) => _ctx.Shippers.Find(id);
-
-        public void Dispose()
-        {
-            _ctx.Dispose();
-        }
+        public Shipper GetById(int id) => NorthwindContext.Shippers.Find(id);
     }
 }

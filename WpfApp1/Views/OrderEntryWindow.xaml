@@ -29,7 +29,7 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock FontWeight="Bold">Customer:</TextBlock>
                     <ComboBox Name="CmbCustomer" 
-                              SelectedItem="{Binding Path=Customer}"
+                              SelectedItem="{Binding Path=Customer, Mode=TwoWay}"
                               ItemsSource="{Binding Path=Customers}"
                               DisplayMemberPath="CompanyName"
                               SelectedValuePath="CustomerID"
@@ -53,6 +53,7 @@
                     <TextBlock FontWeight="Bold">Required Date:</TextBlock>
                     <DatePicker Name="DateRequired" 
                                 SelectedDateChanged="OnDateChanged"
+                                SelectedDate="{Binding RequiredDate, Mode=TwoWay}"
                                 IsEnabled="{Binding WindowReady, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"></DatePicker>
                 </StackPanel>
             </StackPanel>
@@ -60,7 +61,7 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock FontWeight="Bold">Ship via:</TextBlock>
                     <ComboBox Name="CmbShipMethod"
-                              SelectedItem="{Binding Path=Shipper}"
+                              SelectedItem="{Binding Path=Shipper, Mode=TwoWay}"
                               ItemsSource="{Binding Path=Shippers}"
                               DisplayMemberPath="CompanyName"
                               SelectedValuePath="ShipperID"

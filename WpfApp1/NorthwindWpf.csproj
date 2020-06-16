@@ -72,8 +72,8 @@
     <Compile Include="Views\AddItemWindow.xaml.cs">
       <DependentUpon>AddItemWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OrderEnrtyWindow.xaml.cs">
-      <DependentUpon>OrderEnrtyWindow.xaml</DependentUpon>
+    <Compile Include="Views\OrderEntryWindow.xaml.cs">
+      <DependentUpon>OrderEntryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewOrderWindow.xaml.cs">
       <DependentUpon>ViewOrderWindow.xaml</DependentUpon>
@@ -97,7 +97,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\OrderEnrtyWindow.xaml">
+    <Page Include="Views\OrderEntryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

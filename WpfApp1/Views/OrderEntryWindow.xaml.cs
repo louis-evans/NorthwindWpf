@@ -21,6 +21,8 @@ namespace WpfApp1.Views
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public int? OrderId { get; set; }
+
         public bool WindowReady 
         { 
             get => _windowReady; 
@@ -46,18 +48,34 @@ namespace WpfApp1.Views
             {
                 _viewModel = new OrderViewModel
                 {
-                    LineItems = new ObservableCollection<OrderViewModel.LineItem>(),
                     Customers = await customerRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync(),
                     Shippers = await shipperRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync()
                 };
 
-                if (/* Existing order */false)
+                if (OrderId.HasValue)
                 {
-                    //TODO: Load order and set view model values
+                    using(var orderRepo = new OrderRepository())
+                    {
+                        var order = await orderRepo.GetByIdAsync(OrderId.Value);
+                        _viewModel.Customer = order.Customer;
+                        _viewModel.Shipper = order.Shipper;
+                        _viewModel.OrderDate = order.OrderDate;
+                        _viewModel.RequiredDate = order.RequiredDate;
+                        _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>(order.Order_Details.Select(x => new OrderViewModel.LineItem
+                        {
+                            Product = x.Product,
+                            Qty = x.Quantity,
+                            Discount = x.Discount * 100
+                        }));
+
+                        CmbCustomer.SelectedItem = order.Customer;
+                        CmbShipMethod.SelectedItem = order.Shipper;
+
+                    }
                 }
                 else//new order
                 {
-                    //initialise any empty values
+                    _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>();
                 }
             }
 
@@ -131,6 +149,12 @@ namespace WpfApp1.Views
                 }
 
                 MessageBox.Show(message.ToString());
+            }
+            else
+            {
+                //TODO commit order to database
+                DialogResult = true;
+                Close();
             }
         }
 

@@ -1,10 +1,10 @@
-﻿using Northwind.Data;
-using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using NorthwindWpf.ViewModels;
 using NorthwindWpf.Data.Repositories;
+using WpfApp1.Views;
+using System.Threading.Tasks;
 
 namespace NorthwindWpf.Views
 {
@@ -22,14 +22,27 @@ namespace NorthwindWpf.Views
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            using(var orderRepo = new OrderRepository())
+            await LoadOrder();
+        }
+
+        private async void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new OrderEntryWindow
             {
-                var order = await orderRepo.GetAll()
-                    .Include(o => o.Customer)
-                    .Include(o => o.Shipper)
-                    .Include(o => o.Order_Details)
-                    .Include(o => o.Order_Details.Select(d => d.Product))
-                    .SingleAsync(o => o.OrderID == OrderId);
+                OrderId = OrderId
+            };
+
+            if (window.ShowDialog() == true)
+            {
+                await LoadOrder();
+            }
+        }
+
+        private async Task LoadOrder()
+        {
+            using (var orderRepo = new OrderRepository())
+            {
+                var order = await orderRepo.GetByIdAsync(OrderId);
 
                 DataContext = new ViewOrderViewModel
                 {

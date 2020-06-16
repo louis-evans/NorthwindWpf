@@ -1,6 +1,7 @@
 ﻿using Northwind.Data;
 using NorthwindWpf.Data.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +13,12 @@ namespace NorthwindWpf.Views
 {
     public partial class ViewOrdersWindow : Window
     {
+        private IDictionary<int, ViewOrderWindow> _openOrderWindows;
+
         public ViewOrdersWindow()
         {
             InitializeComponent();
+            _openOrderWindows = new Dictionary<int, ViewOrderWindow>();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -22,7 +26,7 @@ namespace NorthwindWpf.Views
             await LoadOrders();
         }
 
-        private async void LstOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void LstOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var row = ItemsControl.ContainerFromElement((DataGrid)sender, e.OriginalSource as DependencyObject) as DataGridRow;
 
@@ -32,18 +36,32 @@ namespace NorthwindWpf.Views
             {
                 var orderId = ((OrderLineModel)row.Item).OrderID;
 
-                var viewOrder = new ViewOrderWindow(orderId);
-                var result = viewOrder.ShowDialog();
-
-                if (result ?? false)
+                if (_openOrderWindows.ContainsKey(orderId))
                 {
-                    await LoadOrders();
+                    _openOrderWindows[orderId].Focus();
+                }
+                else
+                {
+                    var viewOrder = new ViewOrderWindow(orderId);
+                    viewOrder.Closed += OnWindowClosed;
+                    _openOrderWindows.Add(orderId, viewOrder);
+                    viewOrder.Show();
                 }
             }
             catch
             {
                 MessageBox.Show("Cannot open order");
             }
+        }
+
+        private void OnWindowClosed(object sender, EventArgs e)
+        {
+            var window = sender as ViewOrderWindow;
+
+            if (_openOrderWindows.ContainsKey(window.OrderId))
+            {
+                _openOrderWindows.Remove(window.OrderId);
+            }          
         }
 
         private async Task LoadOrders()
