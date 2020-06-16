@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace NorthwindWpf.Data.Services
@@ -26,7 +27,7 @@ namespace NorthwindWpf.Data.Services
 #if DEBUG
             var fileName = number == null ? "find_address_by_number" : "find_address_by_postcode";
 
-            var filePath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Static", $"{fileName}_sample.json");
+            var filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Static", $"{fileName}_sample.json");
             jsonText = File.ReadAllText(filePath);
             
 #else

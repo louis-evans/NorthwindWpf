@@ -1,5 +1,6 @@
 ﻿using Northwind.Data;
 using NorthwindWpf.Data.Repositories;
+using NorthwindWpf.Data.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -237,6 +238,17 @@ namespace WpfApp1.Views
             if (!_viewModel.LineItems.Any()) errors.Add("Please add at least 1 line item");
 
             return errors;
+        }
+
+        private async void PostCodeSearchClick(object sender, RoutedEventArgs e)
+        {
+            var postCode = TxtPostCode.Text;
+
+            using(var addressService = new AddressLookupService())
+            {
+                var addressResults = await addressService.FindByPostCodeAsync(postCode);
+                //TODO come up with a way of presenting these results for the user to select
+            }
         }
     }
 }
