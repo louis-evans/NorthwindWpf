@@ -1,0 +1,24 @@
+{
+  "postcode": "ST7 2TA",
+  "latitude": 53.0975629,
+  "longitude": -2.3315709,
+  "addresses": [
+    {
+      "formatted_address": [ "19 Spencer Close", "", "", "Alsager, Stoke-on-Trent", "Staffordshire" ],
+      "thoroughfare": "Spencer Close",
+      "building_name": "",
+      "sub_building_name": "",
+      "sub_building_number": "",
+      "building_number": "19",
+      "line_1": "19 Spencer Close",
+      "line_2": "",
+      "line_3": "",
+      "line_4": "",
+      "locality": "Alsager",
+      "town_or_city": "Stoke-on-Trent",
+      "county": "Staffordshire",
+      "district": "Cheshire East",
+      "country": "England"
+    }
+  ]
+}
