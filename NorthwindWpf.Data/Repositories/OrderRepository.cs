@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using System;
+using System.Data.Entity.Migrations;
 
 namespace NorthwindWpf.Data.Repositories
 {
@@ -20,6 +22,12 @@ namespace NorthwindWpf.Data.Repositories
                     .Include(o => o.Shipper)
                     .Include(o => o.Order_Details)
                     .Include(o => o.Order_Details.Select(d => d.Product));
+        }
+
+        public void SaveOrder(Order order)
+        {
+            NorthwindContext.Orders.AddOrUpdate(order);
+            NorthwindContext.SaveChanges();
         }
     }
 }

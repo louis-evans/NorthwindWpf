@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Northwind.Data
+﻿namespace Northwind.Data
 {
     public partial class Customer
     {
         public override bool Equals(object obj)
         {
-            return ((Customer)obj).CustomerID == CustomerID;
+            return (obj as Customer)?.CustomerID == CustomerID;
         }
 
         public override int GetHashCode()

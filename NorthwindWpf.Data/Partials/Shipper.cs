@@ -4,7 +4,7 @@
     {
         public override bool Equals(object obj)
         {
-            return ((Shipper)obj).ShipperID == ShipperID;
+            return (obj as Shipper)?.ShipperID == ShipperID;
         }
 
         public override int GetHashCode()
