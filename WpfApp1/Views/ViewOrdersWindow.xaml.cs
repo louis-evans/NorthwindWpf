@@ -1,4 +1,5 @@
 ﻿using Northwind.Data;
+using NorthwindWpf.Data.Repositories;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -9,23 +10,11 @@ using System.Windows.Input;
 
 namespace NorthwindWpf.Views
 {
-    /// <summary>
-    /// Interaction logic for ViewOrders.xaml
-    /// </summary>
     public partial class ViewOrdersWindow : Window
     {
-        private readonly NorthwindEntities _ctx;
-
         public ViewOrdersWindow()
         {
             InitializeComponent();
-            _ctx = new NorthwindEntities();           
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            _ctx.Dispose();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -62,19 +51,24 @@ namespace NorthwindWpf.Views
             TxtLoading.Visibility = Visibility.Visible;
             LstOrders.Visibility = Visibility.Hidden;
 
-            var orders = await _ctx.Orders.OrderByDescending(o => o.OrderDate).Select(o => new OrderLineModel
+            using(var orderRepo = new OrderRepository())
             {
-                OrderID = o.OrderID,
-                CompanyName = o.Customer.CompanyName,
-                OrderDate = o.OrderDate,
-                ItemCount = o.Order_Details.Count()
-            })
-           .ToListAsync();
+                var orders = await orderRepo.GetAll()
+                    .OrderByDescending(o => o.OrderDate)
+                    .Select(o => new OrderLineModel
+                    {
+                        OrderID = o.OrderID,
+                        CompanyName = o.Customer.CompanyName,
+                        OrderDate = o.OrderDate,
+                        ItemCount = o.Order_Details.Count()
+                    })
+                    .ToArrayAsync();
 
-            TxtLoading.Visibility = Visibility.Hidden;
+                TxtLoading.Visibility = Visibility.Hidden;
 
-            LstOrders.ItemsSource = orders;
-            LstOrders.Visibility = Visibility.Visible;
+                LstOrders.ItemsSource = orders;
+                LstOrders.Visibility = Visibility.Visible;
+            }
         }
 
         private class OrderLineModel

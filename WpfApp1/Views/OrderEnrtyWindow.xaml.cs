@@ -1,4 +1,5 @@
 ﻿using Northwind.Data;
+using NorthwindWpf.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,6 @@ namespace WpfApp1.Views
 {
     public partial class OrderEntryWindow : Window, INotifyPropertyChanged
     {
-        private readonly NorthwindEntities _ctx;
         private OrderViewModel _viewModel;
         private bool _windowReady;
 
@@ -34,34 +34,31 @@ namespace WpfApp1.Views
         public OrderEntryWindow()
         {
             InitializeComponent();
-            _ctx = new NorthwindEntities();
             WindowReady = false;
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            _ctx.Dispose();
         }
 
         #region Event Handlers
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel = new OrderViewModel
+            using (var customerRepo = new CustomerRepository())
+            using (var shipperRepo = new ShipperRepository())
             {
-                LineItems = new ObservableCollection<OrderViewModel.LineItem>(),
-                Customers = await _ctx.Customers.OrderBy(x => x.CompanyName).ToArrayAsync(),
-                Shippers = await _ctx.Shippers.OrderBy(x => x.CompanyName).ToArrayAsync()
-            };
+                _viewModel = new OrderViewModel
+                {
+                    LineItems = new ObservableCollection<OrderViewModel.LineItem>(),
+                    Customers = await customerRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync(),
+                    Shippers = await shipperRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync()
+                };
 
-            if (/* Existing order */false)
-            {
-                //TODO: Load order and set view model values
-            }
-            else//new order
-            {
-                //initialise any empty values
+                if (/* Existing order */false)
+                {
+                    //TODO: Load order and set view model values
+                }
+                else//new order
+                {
+                    //initialise any empty values
+                }
             }
 
             _viewModel.LineItems.CollectionChanged += OnLineItemsChanged;

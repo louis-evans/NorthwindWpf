@@ -136,7 +136,10 @@
     <Compile Include="Region.cs">
       <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\ShipperRepository.cs" />
     <Compile Include="SalesByCategory_Result.cs">
       <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
