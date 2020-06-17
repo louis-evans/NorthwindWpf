@@ -1,4 +1,5 @@
 ﻿using Northwind.Data;
+using NorthwindWpf;
 using NorthwindWpf.Data.Repositories;
 using NorthwindWpf.Data.Services;
 using System;
@@ -19,6 +20,9 @@ namespace WpfApp1.Views
     {
         private OrderViewModel _viewModel;
         private bool _windowReady;
+        private readonly ICustomerRepository _customerRepo;
+        private readonly IShipperRepository _shipperRepo;
+        private readonly IOrderRepository _orderRepo;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,47 +42,56 @@ namespace WpfApp1.Views
         {
             InitializeComponent();
             WindowReady = false;
+
+            var app = (App)Application.Current;
+            _customerRepo = app.GetService<ICustomerRepository>();
+            _shipperRepo = app.GetService<IShipperRepository>();
+            _orderRepo = app.GetService<IOrderRepository>();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _customerRepo.Dispose();
+            _shipperRepo.Dispose();
+            _orderRepo.Dispose();
         }
 
         #region Event Handlers
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            using (var customerRepo = new CustomerRepository())
-            using (var shipperRepo = new ShipperRepository())
+            _viewModel = new OrderViewModel
             {
-                _viewModel = new OrderViewModel
-                {
-                    Customers = await customerRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync(),
-                    Shippers = await shipperRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync()
-                };
+                Customers = await _customerRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync(),
+                Shippers = await _shipperRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync()
+            };
 
-                if (OrderId.HasValue)
+            if (OrderId.HasValue)
+            {
+                using(var orderRepo = new OrderRepository())
                 {
-                    using(var orderRepo = new OrderRepository())
+                    var order = await orderRepo.GetByIdAsync(OrderId.Value);
+                    _viewModel.OrderID = OrderId;
+                    _viewModel.Customer = order.Customer;
+                    _viewModel.Shipper = order.Shipper;
+                    _viewModel.OrderDate = order.OrderDate;
+                    _viewModel.RequiredDate = order.RequiredDate;
+                    _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>(order.Order_Details.Select(x => new OrderViewModel.LineItem
                     {
-                        var order = await orderRepo.GetByIdAsync(OrderId.Value);
-                        _viewModel.OrderID = OrderId;
-                        _viewModel.Customer = order.Customer;
-                        _viewModel.Shipper = order.Shipper;
-                        _viewModel.OrderDate = order.OrderDate;
-                        _viewModel.RequiredDate = order.RequiredDate;
-                        _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>(order.Order_Details.Select(x => new OrderViewModel.LineItem
-                        {
-                            Product = x.Product,
-                            Qty = x.Quantity,
-                            Discount = x.Discount * 100
-                        }));
+                        Product = x.Product,
+                        Qty = x.Quantity,
+                        Discount = x.Discount * 100
+                    }));
 
-                        CmbCustomer.SelectedItem = order.Customer;
-                        CmbShipMethod.SelectedItem = order.Shipper;
+                    CmbCustomer.SelectedItem = order.Customer;
+                    CmbShipMethod.SelectedItem = order.Shipper;
 
-                    }
                 }
-                else//new order
-                {
-                    _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>();
-                }
+            }
+            else//new order
+            {
+                _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>();
             }
 
             _viewModel.LineItems.CollectionChanged += OnLineItemsChanged;
@@ -146,74 +159,68 @@ namespace WpfApp1.Views
             }
             else
             {
-                using(var orderRepo = new OrderRepository())
+                Order order;
+
+                if (OrderId.HasValue)
                 {
-                    Order order;
+                    order = await _orderRepo.GetByIdAsync(OrderId.Value);
 
-                    if (OrderId.HasValue)
+                    var deletedItems = order.Order_Details.Where(x => !_viewModel.LineItems.Select(l => l.Product.ProductID).Contains(x.ProductID));
+
+                    foreach(var deletedItem in deletedItems)
                     {
-                        order = await orderRepo.GetByIdAsync(OrderId.Value);
-
-                        var deletedItems = order.Order_Details.Where(x => !_viewModel.LineItems.Select(l => l.Product.ProductID).Contains(x.ProductID));
-
-                        foreach(var deletedItem in deletedItems)
-                        {
-                            order.Order_Details.Remove(deletedItem);
-                        }
-
-                        foreach (var newItem in _viewModel.LineItems)
-                        {
-                            Order_Detail lineItem;
-
-                            if (order.Order_Details.Any(x => x.ProductID == newItem.Product.ProductID))
-                            {
-                                lineItem = order.Order_Details.First(x => x.ProductID == newItem.Product.ProductID);
-                            }
-                            else
-                            {
-                                lineItem = new Order_Detail
-                                {
-                                    Product = newItem.Product,
-                                };
-
-                                order.Order_Details.Add(lineItem);
-                            }
-
-                            lineItem.UnitPrice = newItem.UnitPrice;
-                            lineItem.Quantity = Convert.ToInt16(newItem.Qty);
-                            lineItem.Discount = newItem.Discount / 100;
-                        }
-                    }
-                    else
-                    {
-                        order = new Order();
-
-                        foreach (var newItem in _viewModel.LineItems)
-                        {
-                            order.Order_Details.Add(new Order_Detail
-                            {
-                                ProductID = newItem.Product.ProductID,
-                                UnitPrice = newItem.Product.UnitPrice ?? 0m,
-                                Quantity = Convert.ToInt16(newItem.Qty),
-                                Discount = newItem.Discount / 100
-                            });
-                        }
+                        order.Order_Details.Remove(deletedItem);
                     }
 
-                    order.CustomerID = _viewModel.Customer.CustomerID;
-                    order.ShipVia = _viewModel.Shipper.ShipperID;
-                    order.OrderDate = _viewModel.OrderDate;
-                    order.RequiredDate = _viewModel.RequiredDate;
+                    foreach (var newItem in _viewModel.LineItems)
+                    {
+                        Order_Detail lineItem;
 
-                    orderRepo.SaveOrder(order);
-                    
+                        if (order.Order_Details.Any(x => x.ProductID == newItem.Product.ProductID))
+                        {
+                            lineItem = order.Order_Details.First(x => x.ProductID == newItem.Product.ProductID);
+                        }
+                        else
+                        {
+                            lineItem = new Order_Detail
+                            {
+                                Product = newItem.Product,
+                            };
 
-                    //TODO commit order to database
-                    DialogResult = true;
-                    Close();
+                            order.Order_Details.Add(lineItem);
+                        }
+
+                        lineItem.UnitPrice = newItem.UnitPrice;
+                        lineItem.Quantity = Convert.ToInt16(newItem.Qty);
+                        lineItem.Discount = newItem.Discount / 100;
+                    }
+                }
+                else
+                {
+                    order = new Order();
+
+                    foreach (var newItem in _viewModel.LineItems)
+                    {
+                        order.Order_Details.Add(new Order_Detail
+                        {
+                            ProductID = newItem.Product.ProductID,
+                            UnitPrice = newItem.Product.UnitPrice ?? 0m,
+                            Quantity = Convert.ToInt16(newItem.Qty),
+                            Discount = newItem.Discount / 100
+                        });
+                    }
                 }
 
-                
+                order.CustomerID = _viewModel.Customer.CustomerID;
+                order.ShipVia = _viewModel.Shipper.ShipperID;
+                order.OrderDate = _viewModel.OrderDate;
+                order.RequiredDate = _viewModel.RequiredDate;
+
+                _orderRepo.SaveOrder(order);
+                    
+                //TODO commit order to database
+                DialogResult = true;
+                Close();
             }
         }
 

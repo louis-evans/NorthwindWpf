@@ -7,7 +7,15 @@ using System.Data.Entity.Migrations;
 
 namespace NorthwindWpf.Data.Repositories
 {
-    public class OrderRepository : NorthwindRepository
+    public interface IOrderRepository : IDisposable
+    {
+        IQueryable<Order> GetAll();
+        Order GetById(int id);
+        Task<Order> GetByIdAsync(int id);
+        void SaveOrder(Order order);
+    }
+
+    public class OrderRepository : NorthwindRepository, IOrderRepository
     {
         public IQueryable<Order> GetAll() => OrderQueryBase();
 

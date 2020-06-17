@@ -1,9 +1,16 @@
 ﻿using Northwind.Data;
+using System;
 using System.Linq;
 
 namespace NorthwindWpf.Data.Repositories
 {
-    public class ShipperRepository : NorthwindRepository
+    public interface IShipperRepository : IDisposable
+    {
+        IQueryable<Shipper> GetAll();
+        Shipper GetById(int id);
+    }
+
+    public class ShipperRepository : NorthwindRepository, IShipperRepository
     {
         public IQueryable<Shipper> GetAll() => NorthwindContext.Shippers;
 

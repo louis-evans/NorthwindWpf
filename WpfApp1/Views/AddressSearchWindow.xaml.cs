@@ -1,25 +1,30 @@
-﻿using NorthwindWpf.Data.Models;
+﻿using NorthwindWpf;
+using NorthwindWpf.Data.Models;
 using NorthwindWpf.Data.Services;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfApp1.Views
 {
-    /// <summary>
-    /// Interaction logic for AddressSearchWindow.xaml
-    /// </summary>
     public partial class AddressSearchWindow : Window
     {
+        private readonly IAddressLookupService _addressService;
+
         public AddressFindResult.Address SelectedAddress { get; private set; }
 
         public AddressSearchWindow()
         {
             InitializeComponent();
+
+            var app = Application.Current as App;
+            _addressService = app.GetService<IAddressLookupService>();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        protected override void OnClosed(EventArgs e)
         {
-
+            base.OnClosed(e);
+            _addressService.Dispose();
         }
 
         private async void Search_Click(object sender, RoutedEventArgs e)
@@ -38,11 +43,8 @@ namespace WpfApp1.Views
                 }
             }
 
-            using (var addressService = new AddressLookupService())
-            {
-                var addressResults = await addressService.FindByPostCodeAsync(postCode, number == default ? (int?)null: number);
-                DgResults.ItemsSource = addressResults.Addresses;
-            }
+            var addressResults = await _addressService.FindByPostCodeAsync(postCode, number == default ? (int?)null: number);
+            DgResults.ItemsSource = addressResults.Addresses;
         }
 
         private void Result_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

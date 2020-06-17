@@ -1,14 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Ninject;
+using System;
 using System.Windows;
+using WpfApp1.Configuration;
 
 namespace NorthwindWpf
 {
     public partial class App : Application
     {
+        protected IKernel Kernal { get; private set; }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Kernal = NinjectConfiguration.InitKernal();
+            base.OnStartup(e);
+        }
+
+        public T GetService<T>() where T : class => Kernal.Get<T>();
+
+        public object GetService(Type type) => Kernal.Get(type);
     }
 }
