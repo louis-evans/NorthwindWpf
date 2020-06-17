@@ -4,7 +4,13 @@ using System.Linq;
 
 namespace NorthwindWpf.Data.Repositories
 {
-    public class CustomerRepository : NorthwindRepository
+    public interface ICustomerRepository : IDisposable
+    {
+        IQueryable<Customer> GetAll();
+        Customer GetById(int id);
+    }
+
+    public class CustomerRepository : NorthwindRepository, ICustomerRepository
     {
         public IQueryable<Customer> GetAll() => NorthwindContext.Customers;
 

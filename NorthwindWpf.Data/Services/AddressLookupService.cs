@@ -9,7 +9,12 @@ using System.Threading.Tasks;
 
 namespace NorthwindWpf.Data.Services
 {
-    public class AddressLookupService : IDisposable
+    public interface IAddressLookupService : IDisposable
+    {
+        Task<AddressFindResult> FindByPostCodeAsync(string postCode, int? number = null);
+    }
+
+    public class AddressLookupService : IAddressLookupService
     {
         private readonly string _apiKey;
         private readonly HttpClient _httpClient;
@@ -31,7 +36,7 @@ namespace NorthwindWpf.Data.Services
 
             var filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Static", $"{fileName}_sample.json");
             jsonText = File.ReadAllText(filePath);
-            
+
 #else
             var apiUrl = ConfigurationManager.AppSettings["AddressFindUrl"];
             var urlEnd = postCode.Trim().Replace(" ", "") + (number == null ? "" : $"/{number}");
