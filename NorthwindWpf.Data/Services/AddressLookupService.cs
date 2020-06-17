@@ -22,17 +22,19 @@ namespace NorthwindWpf.Data.Services
 
         public async Task<AddressFindResult> FindByPostCodeAsync(string postCode, int? number = null)
         {
+            if (string.IsNullOrWhiteSpace(postCode)) throw new ArgumentNullException(nameof(postCode));
+
             string jsonText;
 
 #if DEBUG
-            var fileName = number == null ? "find_address_by_number" : "find_address_by_postcode";
+            var fileName = number == null ? "find_address_by_postcode" : "find_address_by_number";
 
             var filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Static", $"{fileName}_sample.json");
             jsonText = File.ReadAllText(filePath);
             
 #else
             var apiUrl = ConfigurationManager.AppSettings["AddressFindUrl"];
-            var urlEnd = postCode + (number == null ? "" : $"/{number}");
+            var urlEnd = postCode.Trim().Replace(" ", "") + (number == null ? "" : $"/{number}");
 
             apiUrl = string.Format(apiUrl, urlEnd, _apiKey);
 

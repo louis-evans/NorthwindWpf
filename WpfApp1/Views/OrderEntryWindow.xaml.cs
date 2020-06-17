@@ -240,14 +240,17 @@ namespace WpfApp1.Views
             return errors;
         }
 
-        private async void PostCodeSearchClick(object sender, RoutedEventArgs e)
+        private void PostCodeSearchClick(object sender, RoutedEventArgs e)
         {
-            var postCode = TxtPostCode.Text;
+            var addressWindow = new AddressSearchWindow();
 
-            using(var addressService = new AddressLookupService())
+            if (addressWindow.ShowDialog() == true && addressWindow.SelectedAddress != null)
             {
-                var addressResults = await addressService.FindByPostCodeAsync(postCode);
-                //TODO come up with a way of presenting these results for the user to select
+                TxtShipAddress.Text = addressWindow.SelectedAddress.Line1;
+                TxtPostCode.Text = addressWindow.SelectedAddress.PostCode;
+                TxtTown.Text = addressWindow.SelectedAddress.TownCity.Replace(" ", "");
+                TxtRegion.Text = addressWindow.SelectedAddress.County;
+                TxtCountry.Text = addressWindow.SelectedAddress.Country;
             }
         }
     }

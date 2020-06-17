@@ -193,7 +193,9 @@
     <Content Include="Static\find_address_by_postcode_sample.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Static\find_address_by_number_sample.json" />
+    <Content Include="Static\find_address_by_number_sample.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Northwind.Context.tt">

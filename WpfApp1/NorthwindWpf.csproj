@@ -75,6 +75,9 @@
     <Compile Include="Views\AddItemWindow.xaml.cs">
       <DependentUpon>AddItemWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddressSearchWindow.xaml.cs">
+      <DependentUpon>AddressSearchWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OrderEntryWindow.xaml.cs">
       <DependentUpon>OrderEntryWindow.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,10 @@
       <DependentUpon>ViewOrdersWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AddItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddressSearchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

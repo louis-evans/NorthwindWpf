@@ -1,0 +1,48 @@
+﻿<Window x:Class="WpfApp1.Views.AddressSearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.Views"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="Find Address" Height="400" Width="1000">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height=".1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".1*"/>
+            <ColumnDefinition Width=".1*"/>
+            <ColumnDefinition Width=".2*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,0,5,0">
+            <Label>Name/Number</Label>
+            <TextBox Name="TxtNumber"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="5,0,5,0">
+            <Label>Post Code</Label>
+            <TextBox Name="TxtPostCode"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5,0,5,0">
+            <Button Click="Search_Click">Search</Button>
+        </StackPanel>
+        <DataGrid Name="DgResults" Grid.Row="2" Grid.ColumnSpan="3" AutoGenerateColumns="False">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Result_DoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Line 1" Width="1*" Binding="{Binding Line1, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Locality" Width="1*" Binding="{Binding Locality, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Town/City" Width="1*" Binding="{Binding TownCity, Mode=OneWay}"/>
+                <DataGridTextColumn Header="County" Width="1*" Binding="{Binding County, Mode=OneWay}"/>
+                <DataGridTextColumn Header="District" Width="1*" Binding="{Binding District, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Country" Width="1*" Binding="{Binding Country, Mode=OneWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

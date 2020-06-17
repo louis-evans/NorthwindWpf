@@ -63,6 +63,8 @@ namespace NorthwindWpf.Data.Models
 
             [JsonProperty("country")]
             public string Country { get; set; }
+
+            public string PostCode { get; set; }
         }
     }
 
