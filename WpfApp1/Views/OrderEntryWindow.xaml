@@ -86,19 +86,19 @@
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="1" Margin="5,0,5,0">
                 <TextBlock>Name:</TextBlock>
-                <TextBox></TextBox>
+                <TextBox Name="TxtShipName" Text="{Binding Path=ShipName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock>Ship Address:</TextBlock>
-                <TextBox Name="TxtShipAddress"/>
+                <TextBox Name="TxtShipAddress" Text="{Binding Path=ShipAddress, Mode=TwoWay}"/>
                 <TextBlock>Post Code:</TextBlock>
-                <TextBox Name="TxtPostCode" />
+                <TextBox Name="TxtPostCode" Text="{Binding Path=ShipPostCode, Mode=TwoWay}"/>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="2" Margin="5,0,5,0">
                 <TextBlock>Town / City:</TextBlock>
-                <TextBox Name="TxtTown" ></TextBox>
+                <TextBox Name="TxtTown" Text="{Binding Path=ShipCity, Mode=TwoWay}"/>
                 <TextBlock>Region:</TextBlock>
-                <TextBox Name="TxtRegion"/>
+                <TextBox Name="TxtRegion" Text="{Binding Path=ShipRegion, Mode=TwoWay}"/>
                 <TextBlock>Country:</TextBlock>
-                <TextBox Name="TxtCountry"/>
+                <TextBox Name="TxtCountry" Text="{Binding Path=ShipCountry, Mode=TwoWay}"/>
             </StackPanel>
         </Grid>
 
@@ -136,7 +136,8 @@
                                     Header="Product" 
                                     Width="3*"/>
 
-                <DataGridTextColumn Binding="{Binding Path=UnitPriceDisplay, Mode=OneWay}" 
+                <DataGridTextColumn Binding="{Binding Path=UnitPrice, Mode=TwoWay}" 
+                                    IsReadOnly="False" 
                                     Header="Unit Price" 
                                     Width="1*"/>
                 

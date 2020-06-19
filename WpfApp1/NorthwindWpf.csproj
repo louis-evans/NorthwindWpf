@@ -75,6 +75,7 @@
     </ApplicationDefinition>
     <Compile Include="Configuration\NinjectConfiguration.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewOrderViewModel.cs" />
     <Compile Include="Views\AddItemWindow.xaml.cs">
       <DependentUpon>AddItemWindow.xaml</DependentUpon>
@@ -155,6 +156,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NorthwindWpf.Core\NorthwindWpf.Core.csproj">
+      <Project>{e0d7abc4-66f2-4194-9ed4-ca06b1bc0fdc}</Project>
+      <Name>NorthwindWpf.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NorthwindWpf.Data\NorthwindWpf.Data.csproj">
       <Project>{5a11e158-40d6-4de9-bfa9-691040eaf72d}</Project>
       <Name>NorthwindWpf.Data</Name>

@@ -1,7 +1,6 @@
 ﻿using Northwind.Data;
 using NorthwindWpf;
 using NorthwindWpf.Data.Repositories;
-using NorthwindWpf.Data.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -69,25 +68,42 @@ namespace WpfApp1.Views
 
             if (OrderId.HasValue)
             {
-                using(var orderRepo = new OrderRepository())
+                var order = await _orderRepo.GetByIdAsync(OrderId.Value);
+                _viewModel.OrderID = OrderId;
+                _viewModel.Customer = order.Customer;
+                _viewModel.Shipper = order.Shipper;
+                _viewModel.OrderDate = order.OrderDate;
+                _viewModel.RequiredDate = order.RequiredDate;
+                _viewModel.ShipName = order.ShipName;
+                _viewModel.ShipAddress = order.ShipAddress;
+                _viewModel.ShipCity = order.ShipCity;
+                _viewModel.ShipRegion = order.ShipRegion;
+                _viewModel.ShipPostCode = order.ShipPostalCode;
+                _viewModel.ShipCountry = order.ShipCountry;
+
+                var itemList = new List<OrderViewModel.LineItem>(order.Order_Details.Count);
+
+                foreach(var detail in order.Order_Details)
                 {
-                    var order = await orderRepo.GetByIdAsync(OrderId.Value);
-                    _viewModel.OrderID = OrderId;
-                    _viewModel.Customer = order.Customer;
-                    _viewModel.Shipper = order.Shipper;
-                    _viewModel.OrderDate = order.OrderDate;
-                    _viewModel.RequiredDate = order.RequiredDate;
-                    _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>(order.Order_Details.Select(x => new OrderViewModel.LineItem
+                    var line = new OrderViewModel.LineItem
                     {
-                        Product = x.Product,
-                        Qty = x.Quantity,
-                        Discount = x.Discount * 100
-                    }));
+                        Product = detail.Product,
+                        UnitPrice = detail.Product.UnitPrice ?? 0m,
+                        Qty = detail.Quantity,
+                        Discount = detail.Discount * 100
+                    };
 
-                    CmbCustomer.SelectedItem = order.Customer;
-                    CmbShipMethod.SelectedItem = order.Shipper;
+                    line.PropertyChanged += OnLineItemPropertyChanged;
 
+                    itemList.Add(line);
                 }
+                
+                _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>(itemList);
+
+                CmbCustomer.SelectedItem = order.Customer;
+                CmbShipMethod.SelectedItem = order.Shipper;
+
+                CalculateOrderTotal();
             }
             else//new order
             {
@@ -105,6 +121,11 @@ namespace WpfApp1.Views
             CalculateOrderTotal();
         }
 
+        private void OnLineItemPropertyChanged(object sender, PropertyChangedEventArgs arg)
+        {
+            CalculateOrderTotal();
+        }
+
         private void AddLineItem_Click(object sender, RoutedEventArgs e)
         {
             var addItemWindow = new AddItemWindow
@@ -117,18 +138,17 @@ namespace WpfApp1.Views
                 var item = new OrderViewModel.LineItem
                 {
                     Product = addItemWindow.Product,
+                    UnitPrice = addItemWindow.Product.UnitPrice ?? 0m,
                     Qty = addItemWindow.Quantity,
                 };
 
-                item.PropertyChanged += (s, args) =>
-                {
-                    CalculateOrderTotal();
-                };
+                item.PropertyChanged += OnLineItemPropertyChanged;
 
                 _viewModel.LineItems.Add(item);
             }
         }
 
+        
         private void OnDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DateOrder.SelectedDate == null || DateRequired.SelectedDate == null) return;
@@ -253,11 +273,11 @@ namespace WpfApp1.Views
 
             if (addressWindow.ShowDialog() == true && addressWindow.SelectedAddress != null)
             {
-                TxtShipAddress.Text = addressWindow.SelectedAddress.Line1;
-                TxtPostCode.Text = addressWindow.SelectedAddress.PostCode;
-                TxtTown.Text = addressWindow.SelectedAddress.TownCity.Replace(" ", "");
-                TxtRegion.Text = addressWindow.SelectedAddress.County;
-                TxtCountry.Text = addressWindow.SelectedAddress.Country;
+                _viewModel.ShipAddress = addressWindow.SelectedAddress.Line1;
+                _viewModel.ShipPostCode = addressWindow.SelectedAddress.PostCode;
+                _viewModel.ShipCity = addressWindow.SelectedAddress.TownCity.Replace(" ", "");
+                _viewModel.ShipRegion = addressWindow.SelectedAddress.County;
+                _viewModel.ShipCountry = addressWindow.SelectedAddress.Country;
             }
         }
     }
