@@ -4,11 +4,17 @@ using System;
 
 namespace NorthwindWpf.Core.Service
 {
+    public interface IServiceResolver : IDisposable
+    {
+        object Resolve(Type type);
+        T Resolve<T>();
+    }
+
     /// <summary>
     /// Singleton that acts as wrapper to resovle services using Ninject.
     /// Call <see cref="Get"/> to retrieve the single instance of <see cref="ServiceResolver"/>
     /// </summary>
-    public class ServiceResolver : IDisposable
+    public class ServiceResolver : IServiceResolver
     {
         private static ServiceResolver _resolver;
         private readonly IKernel _kernal;
@@ -22,7 +28,7 @@ namespace NorthwindWpf.Core.Service
         /// Return the single instance of <see cref="ServiceResolver"/>
         /// </summary>
         /// <returns></returns>
-        public static ServiceResolver Get()
+        public static IServiceResolver Get()
         {
             if (_resolver == null)
             {
