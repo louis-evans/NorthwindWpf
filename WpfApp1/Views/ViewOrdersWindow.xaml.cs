@@ -1,4 +1,4 @@
-﻿using Northwind.Data;
+﻿using AutoMapper;
 using NorthwindWpf.Core.Utils;
 using NorthwindWpf.Data.Repositories;
 using System;
@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WpfApp1.Models;
 
 namespace NorthwindWpf.Views
 {
@@ -71,35 +72,17 @@ namespace NorthwindWpf.Views
 
         private async Task LoadOrders()
         {
-            TxtLoading.Visibility = Visibility.Visible;
             LstOrders.Visibility = Visibility.Hidden;
-
-            var orders = await _orderRepo.GetAll()
+            TxtLoading.Visibility = Visibility.Visible;
+            
+            var orders = _orderRepo.GetAll()
                 .OrderByDescending(o => o.OrderDate)
                 .ToArrayAsync();
 
-            var orderLines = orders.Select(o => new OrderLineModel
-            {
-                OrderID = o.OrderID,
-                CompanyName = o.Customer.CompanyName,
-                OrderDate = o.OrderDate,
-                OrderTotal = o.Order_Details.Sum(x => OrderUtils.CalculateLineTotal(x.UnitPrice , x.Quantity, x.Discount)),
-                ItemCount = o.Order_Details.Count()
-            });
+            LstOrders.ItemsSource = Mapper.Map<IEnumerable<OrderLineModel>>(await orders);
 
             TxtLoading.Visibility = Visibility.Hidden;
-
-            LstOrders.ItemsSource = orderLines;
             LstOrders.Visibility = Visibility.Visible;
-        }
-
-        private class OrderLineModel
-        {
-            public int OrderID { get; set; }
-            public string CompanyName { get; set; }
-            public DateTime? OrderDate { get; set; }
-            public decimal OrderTotal { get; set; }
-            public int ItemCount { get; set; }
         }
     }
 }

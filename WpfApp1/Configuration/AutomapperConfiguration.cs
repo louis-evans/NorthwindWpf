@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Northwind.Data;
+using NorthwindWpf.Core.Utils;
+using System.Linq;
+using WpfApp1.Models;
 using WpfApp1.ViewModels;
 
 namespace WpfApp1.Configuration
@@ -10,7 +13,8 @@ namespace WpfApp1.Configuration
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile<ViewModelProfile>();                
+                cfg.AddProfile<OrderModelProfile>();
+                cfg.AddProfile<ViewModelProfile>();
             });
         }
 
@@ -36,6 +40,19 @@ namespace WpfApp1.Configuration
                     .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice))
                     .ForMember(dest => dest.Qty, opt => opt.MapFrom(src => src.Quantity))
                     .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Discount * 100));
+            }
+        }
+
+        protected class OrderModelProfile : Profile
+        {
+            public OrderModelProfile()
+            {
+                CreateMap<Order, OrderLineModel>()
+                    .ForMember(dest => dest.OrderID, opt => opt.MapFrom(src => src.OrderID))
+                    .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.Customer.CompanyName))
+                    .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.OrderDate))
+                    .ForMember(dest => dest.ItemCount, opt => opt.MapFrom(src => src.Order_Details.Count()))
+                    .ForMember(dest => dest.OrderTotal, opt => opt.MapFrom(src => src.Order_Details.Sum(x => OrderUtils.CalculateLineTotal(x.UnitPrice, x.Quantity, x.Discount))));
             }
         }
     }

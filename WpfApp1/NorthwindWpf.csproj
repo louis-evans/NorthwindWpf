@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="Configuration\AutomapperConfiguration.cs" />
     <Compile Include="Configuration\NinjectConfiguration.cs" />
+    <Compile Include="Models\OrderLineModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewOrderViewModel.cs" />
