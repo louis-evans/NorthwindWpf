@@ -11,6 +11,7 @@ namespace NorthwindWpf
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            AutomapperConfiguration.Initialise();
             Kernal = NinjectConfiguration.InitKernal();
             base.OnStartup(e);
         }

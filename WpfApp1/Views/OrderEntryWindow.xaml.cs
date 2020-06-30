@@ -1,4 +1,5 @@
-﻿using Northwind.Data;
+﻿using AutoMapper;
+using Northwind.Data;
 using NorthwindWpf;
 using NorthwindWpf.Data.Repositories;
 using System;
@@ -60,45 +61,22 @@ namespace WpfApp1.Views
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel = new OrderViewModel
-            {
-                Customers = await _customerRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync(),
-                Shippers = await _shipperRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync()
-            };
+            _viewModel = new OrderViewModel();
 
             if (OrderId.HasValue)
             {
                 var order = await _orderRepo.GetByIdAsync(OrderId.Value);
-                _viewModel.OrderID = OrderId;
-                _viewModel.Customer = order.Customer;
-                _viewModel.Shipper = order.Shipper;
-                _viewModel.OrderDate = order.OrderDate;
-                _viewModel.RequiredDate = order.RequiredDate;
-                _viewModel.ShipName = order.ShipName;
-                _viewModel.ShipAddress = order.ShipAddress;
-                _viewModel.ShipCity = order.ShipCity;
-                _viewModel.ShipRegion = order.ShipRegion;
-                _viewModel.ShipPostCode = order.ShipPostalCode;
-                _viewModel.ShipCountry = order.ShipCountry;
 
-                var itemList = new List<OrderViewModel.LineItem>(order.Order_Details.Count);
+                _viewModel = Mapper.Map<OrderViewModel>(order);
+    
+                var lineItems = Mapper.Map<IEnumerable<OrderViewModel.LineItem>>(order.Order_Details);
 
-                foreach(var detail in order.Order_Details)
+                foreach(var line in lineItems)
                 {
-                    var line = new OrderViewModel.LineItem
-                    {
-                        Product = detail.Product,
-                        UnitPrice = detail.Product.UnitPrice ?? 0m,
-                        Qty = detail.Quantity,
-                        Discount = detail.Discount * 100
-                    };
-
                     line.PropertyChanged += OnLineItemPropertyChanged;
-
-                    itemList.Add(line);
                 }
                 
-                _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>(itemList);
+                _viewModel.LineItems = new ObservableCollection<OrderViewModel.LineItem>(lineItems);
 
                 CmbCustomer.SelectedItem = order.Customer;
                 CmbShipMethod.SelectedItem = order.Shipper;
@@ -111,6 +89,10 @@ namespace WpfApp1.Views
             }
 
             _viewModel.LineItems.CollectionChanged += OnLineItemsChanged;
+
+            _viewModel.Customers = await _customerRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync();
+            _viewModel.Shippers = await _shipperRepo.GetAll().OrderBy(x => x.CompanyName).ToArrayAsync();
+
             DataContext = _viewModel;
 
             WindowReady = true;
@@ -147,8 +129,7 @@ namespace WpfApp1.Views
                 _viewModel.LineItems.Add(item);
             }
         }
-
-        
+                
         private void OnDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DateOrder.SelectedDate == null || DateRequired.SelectedDate == null) return;
