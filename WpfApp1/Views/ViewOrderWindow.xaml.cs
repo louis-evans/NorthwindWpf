@@ -5,6 +5,7 @@ using NorthwindWpf.Data.Repositories;
 using WpfApp1.Views;
 using System.Threading.Tasks;
 using NorthwindWpf.Core.Utils;
+using NorthwindWpf.Core.Service;
 
 namespace NorthwindWpf.Views
 {
@@ -20,8 +21,7 @@ namespace NorthwindWpf.Views
             InitializeComponent();
             OrderId = orderId;
 
-            var app = (App)Application.Current;
-            _orderRepo = app.GetService<IOrderRepository>();
+            _orderRepo = ServiceResolver.Get().Resolve<IOrderRepository>();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)

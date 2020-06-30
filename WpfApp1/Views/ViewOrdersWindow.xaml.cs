@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NorthwindWpf.Core.Service;
 using NorthwindWpf.Core.Utils;
 using NorthwindWpf.Data.Repositories;
 using System;
@@ -23,8 +24,7 @@ namespace NorthwindWpf.Views
             InitializeComponent();
             _openOrderWindows = new Dictionary<int, ViewOrderWindow>();
 
-            var app = (App)Application.Current;
-            _orderRepo = app.GetService<IOrderRepository>();
+            _orderRepo = ServiceResolver.Get().Resolve<IOrderRepository>();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)

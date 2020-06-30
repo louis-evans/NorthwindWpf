@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using Northwind.Data;
 using NorthwindWpf;
+using NorthwindWpf.Core.Service;
 
 namespace WpfApp1.Views
 {
@@ -20,8 +21,8 @@ namespace WpfApp1.Views
         public AddItemWindow()
         {
             InitializeComponent();
-            var app = (App)Application.Current;
-            _productRepo = app.GetService<IProductRepository>();
+
+            _productRepo = ServiceResolver.Get().Resolve<IProductRepository>();
         }
 
         protected override void OnClosed(EventArgs e)

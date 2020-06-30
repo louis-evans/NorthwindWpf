@@ -1,13 +1,13 @@
 ﻿using Ninject;
 using Ninject.Modules;
 using NorthwindWpf.Data.Repositories;
-using NorthwindWpf.Data.Services;
+using NorthwindWpf.Core.Services;
 
-namespace WpfApp1.Configuration
+namespace NorthwindWpf.Core.Configuration
 {
-    public static class NinjectConfiguration
+    internal static class NinjectConfiguration
     {
-        public static IKernel InitKernal()
+        internal static IKernel InitKernal()
         {
             return new StandardKernel(new ServiceModule(), new RepositoryModule());
         }

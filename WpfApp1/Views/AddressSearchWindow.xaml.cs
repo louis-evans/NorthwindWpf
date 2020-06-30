@@ -1,6 +1,6 @@
-﻿using NorthwindWpf;
+﻿using NorthwindWpf.Core.Service;
+using NorthwindWpf.Core.Services;
 using NorthwindWpf.Data.Models;
-using NorthwindWpf.Data.Services;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,8 +17,7 @@ namespace WpfApp1.Views
         {
             InitializeComponent();
 
-            var app = Application.Current as App;
-            _addressService = app.GetService<IAddressLookupService>();
+            _addressService = ServiceResolver.Get().Resolve<IAddressLookupService>();
         }
 
         protected override void OnClosed(EventArgs e)

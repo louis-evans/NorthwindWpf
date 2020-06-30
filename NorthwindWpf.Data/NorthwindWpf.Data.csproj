@@ -160,7 +160,6 @@
     <Compile Include="Sales_Totals_by_Amount.cs">
       <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
-    <Compile Include="Services\AddressLookupService.cs" />
     <Compile Include="Shipper.cs">
       <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>

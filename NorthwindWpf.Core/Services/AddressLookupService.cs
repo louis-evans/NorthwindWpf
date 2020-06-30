@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace NorthwindWpf.Data.Services
+namespace NorthwindWpf.Core.Services
 {
     public interface IAddressLookupService : IDisposable
     {

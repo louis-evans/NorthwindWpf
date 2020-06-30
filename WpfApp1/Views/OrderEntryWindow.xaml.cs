@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Northwind.Data;
 using NorthwindWpf;
+using NorthwindWpf.Core.Service;
 using NorthwindWpf.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -43,10 +44,10 @@ namespace WpfApp1.Views
             InitializeComponent();
             WindowReady = false;
 
-            var app = (App)Application.Current;
-            _customerRepo = app.GetService<ICustomerRepository>();
-            _shipperRepo = app.GetService<IShipperRepository>();
-            _orderRepo = app.GetService<IOrderRepository>();
+            var resolver = ServiceResolver.Get();
+            _customerRepo = resolver.Resolve<ICustomerRepository>();
+            _shipperRepo = resolver.Resolve<IShipperRepository>();
+            _orderRepo = resolver.Resolve<IOrderRepository>();
         }
 
         protected override void OnClosed(EventArgs e)
