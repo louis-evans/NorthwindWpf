@@ -4,6 +4,7 @@ using NorthwindWpf.ViewModels;
 using NorthwindWpf.Data.Repositories;
 using WpfApp1.Views;
 using System.Threading.Tasks;
+using NorthwindWpf.Core.Utils;
 
 namespace NorthwindWpf.Views
 {
@@ -59,16 +60,9 @@ namespace NorthwindWpf.Views
                     UnitPrice = x.UnitPrice,
                     Qty = x.Quantity,
                     Discount = x.Discount,
-                    TotalPrice = calculateFinalPrice(x.UnitPrice, x.Quantity, x.Discount)
+                    TotalPrice = OrderUtils.CalculateLineTotal(x.UnitPrice, x.Quantity, x.Discount)
                 })
             };
-
-            float calculateFinalPrice(decimal unitPrice, int qty, float discount)
-            {
-                var netTotal = unitPrice * qty;
-                var discountTotal = (float)netTotal * discount;
-                return (float)netTotal - discountTotal;
-            }
         }
     }
 }

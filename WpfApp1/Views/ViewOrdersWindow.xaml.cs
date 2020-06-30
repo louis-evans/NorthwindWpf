@@ -1,4 +1,5 @@
 ﻿using Northwind.Data;
+using NorthwindWpf.Core.Utils;
 using NorthwindWpf.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -75,18 +76,20 @@ namespace NorthwindWpf.Views
 
             var orders = await _orderRepo.GetAll()
                 .OrderByDescending(o => o.OrderDate)
-                .Select(o => new OrderLineModel
-                {
-                    OrderID = o.OrderID,
-                    CompanyName = o.Customer.CompanyName,
-                    OrderDate = o.OrderDate,
-                    ItemCount = o.Order_Details.Count()
-                })
                 .ToArrayAsync();
+
+            var orderLines = orders.Select(o => new OrderLineModel
+            {
+                OrderID = o.OrderID,
+                CompanyName = o.Customer.CompanyName,
+                OrderDate = o.OrderDate,
+                OrderTotal = o.Order_Details.Sum(x => OrderUtils.CalculateLineTotal(x.UnitPrice , x.Quantity, x.Discount)),
+                ItemCount = o.Order_Details.Count()
+            });
 
             TxtLoading.Visibility = Visibility.Hidden;
 
-            LstOrders.ItemsSource = orders;
+            LstOrders.ItemsSource = orderLines;
             LstOrders.Visibility = Visibility.Visible;
         }
 
@@ -95,6 +98,7 @@ namespace NorthwindWpf.Views
             public int OrderID { get; set; }
             public string CompanyName { get; set; }
             public DateTime? OrderDate { get; set; }
+            public decimal OrderTotal { get; set; }
             public int ItemCount { get; set; }
         }
     }

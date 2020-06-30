@@ -18,8 +18,9 @@
                     <DataGridTextColumn Binding="{Binding Path=OrderID, Mode=OneWay}" Header="Id" Width="100"/>
                     <DataGridTextColumn Binding="{Binding Path=CompanyName, Mode=OneWay}" Header="Company Name" Width="250"/>
                     <DataGridTextColumn Binding="{Binding Path=OrderDate, Mode=OneWay, StringFormat=dd/MM/yyyy}" Header="Date" Width="150"/>
-                    <DataGridTextColumn Binding="{Binding Path=ItemCount, Mode=OneWay}" Header="Items" Width="300"/>
-                </DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=OrderTotal, Mode=OneWay, StringFormat=N2}"  Header="Order Total" Width="150"/>
+                    <DataGridTextColumn Binding="{Binding Path=ItemCount, Mode=OneWay}" Header="Items" Width="150"/>
+            </DataGrid.Columns>
             </DataGrid>
     </Grid>
 </Window>

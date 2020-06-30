@@ -1,4 +1,5 @@
 ﻿using Northwind.Data;
+using NorthwindWpf.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -94,9 +95,7 @@ namespace WpfApp1.ViewModels
 
             private void CalculateTotal()
             {
-                var netTotal = UnitPrice * Qty;
-                var discountTotal = netTotal * ((decimal)Discount / 100);
-                TotalPrice = netTotal - discountTotal;
+                TotalPrice = OrderUtils.CalculateLineTotal(UnitPrice, Qty, Discount);
             }
         }
     }
