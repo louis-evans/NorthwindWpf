@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="Configuration\AutomapperConfiguration.cs" />
     <Compile Include="Models\OrderLineModel.cs" />
+    <Compile Include="ViewModels\AddItemViewModel.cs" />
     <Compile Include="ViewModels\AddressSearchViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

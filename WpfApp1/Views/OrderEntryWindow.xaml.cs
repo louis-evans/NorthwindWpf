@@ -120,9 +120,9 @@ namespace WpfApp1.Views
             {
                 var item = new OrderViewModel.LineItem
                 {
-                    Product = addItemWindow.Product,
-                    UnitPrice = addItemWindow.Product.UnitPrice ?? 0m,
-                    Qty = addItemWindow.Quantity,
+                    Product = addItemWindow.Result.Product,
+                    UnitPrice = addItemWindow.Result.Product.UnitPrice ?? 0m,
+                    Qty = addItemWindow.Result.Quantity,
                 };
 
                 item.PropertyChanged += OnLineItemPropertyChanged;
