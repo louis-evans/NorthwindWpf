@@ -9,6 +9,7 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height=".1*"/>
         </Grid.RowDefinitions>
@@ -18,17 +19,23 @@
             <ColumnDefinition Width=".2*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,0,5,0">
-            <Label>Name/Number</Label>
+            <Label>Number</Label>
             <TextBox x:Name="TxtNameNumber" Text="{Binding Path=NameNumber}" KeyUp="OnInputKeyUp"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5,0,5,0">
+            <TextBlock Name="TxtNumberError" Foreground="Red" Visibility="Hidden">Please enter a numeric value</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,0,5,0">
+            <TextBlock Name="TxtPostCodeError" Foreground="Red" Visibility="Hidden">Please enter a valid Post Code</TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="5,0,5,0">
             <Label>Post Code</Label>
             <TextBox x:Name="TxtPostCode" Text="{Binding Path=PostCode}" KeyUp="OnInputKeyUp"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5,0,5,0">
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="5,0,5,0">
             <Button Click="Search_Click">Search</Button>
         </StackPanel>
-        <DataGrid Grid.Row="2" Grid.ColumnSpan="3" AutoGenerateColumns="False" ItemsSource="{Binding Path=Addresses}" CanUserAddRows="False">
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="3" AutoGenerateColumns="False" ItemsSource="{Binding Path=Addresses}" CanUserAddRows="False">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Result_DoubleClick"/>

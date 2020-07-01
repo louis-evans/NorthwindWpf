@@ -3,10 +3,8 @@ using NorthwindWpf.Core.Services;
 using NorthwindWpf.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using WpfApp1.ViewModels;
 
@@ -39,9 +37,6 @@ namespace WpfApp1.Views
             _addressService.Dispose();
         }
 
-        //TODO 
-        // Implement a ICommand in the view model to handle the search event for both button and enter key
-
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             RunSearch();
@@ -49,6 +44,8 @@ namespace WpfApp1.Views
 
         private void OnInputKeyUp(object sender, KeyEventArgs e)
         {
+            HideErrors();
+
             if (e.Key == Key.Enter)
             {
                 RunSearch();
@@ -57,7 +54,8 @@ namespace WpfApp1.Views
             {
                 var txtSender = (TextBox)sender;
 
-                //do this because the view model value doent get updated until the field loses focus
+                //do this because the view model value doent get updated until the field loses focus 
+                //which means the value will be empty if the user types and presses enter straight away
                 if (txtSender == TxtPostCode) _viewModel.PostCode = txtSender.Text;
                 else if (txtSender == TxtNameNumber) _viewModel.NameNumber = txtSender.Text;
             }
@@ -78,21 +76,31 @@ namespace WpfApp1.Views
 
         private async void RunSearch()
         {
-            var number = 0;
+            var number = 0;          
 
-            if (string.IsNullOrWhiteSpace(_viewModel.PostCode)) return; //TODO need an error message
+            if (string.IsNullOrWhiteSpace(_viewModel.PostCode))
+            {
+                TxtPostCodeError.Visibility = Visibility.Visible;
+                return;
+            }
 
             if (!string.IsNullOrWhiteSpace(_viewModel.NameNumber))
             {
                 if (!int.TryParse(_viewModel.NameNumber.Trim(), out number))
                 {
-                    //TODO need an error message
+                    TxtNumberError.Visibility = Visibility.Visible;
                     return;
                 }
             }
 
             var addressResults = await _addressService.FindByPostCodeAsync(_viewModel.PostCode, number == default ? (int?)null : number);
             _viewModel.Addresses = new List<AddressFindResult.Address>(addressResults.Addresses);
+        }
+
+        private void HideErrors()
+        {
+            TxtPostCodeError.Visibility = Visibility.Hidden;
+            TxtNumberError.Visibility = Visibility.Hidden;
         }
     }
 }
