@@ -19,5 +19,10 @@ namespace NorthwindWpf.Views
         {
             new OrderEntryWindow().ShowDialog();
         }
+
+        private void BtnProducts_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
