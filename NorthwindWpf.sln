@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindWpf", "WpfApp1\NorthwindWpf.csproj", "{1D2AFC14-B861-469B-8212-8325B087CDBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindWpf", "NorthwindWpf\NorthwindWpf.csproj", "{1D2AFC14-B861-469B-8212-8325B087CDBC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindWpf.Data", "NorthwindWpf.Data\NorthwindWpf.Data.csproj", "{5A11E158-40D6-4DE9-BFA9-691040EAF72D}"
 EndProject
