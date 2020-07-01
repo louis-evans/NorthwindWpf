@@ -19,16 +19,16 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,0,5,0">
             <Label>Name/Number</Label>
-            <TextBox Name="TxtNumber"/>
+            <TextBox x:Name="TxtNameNumber" Text="{Binding Path=NameNumber}" KeyUp="OnInputKeyUp"/>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="5,0,5,0">
             <Label>Post Code</Label>
-            <TextBox Name="TxtPostCode"/>
+            <TextBox x:Name="TxtPostCode" Text="{Binding Path=PostCode}" KeyUp="OnInputKeyUp"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="5,0,5,0">
             <Button Click="Search_Click">Search</Button>
         </StackPanel>
-        <DataGrid Name="DgResults" Grid.Row="2" Grid.ColumnSpan="3" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="2" Grid.ColumnSpan="3" AutoGenerateColumns="False" ItemsSource="{Binding Path=Addresses}" CanUserAddRows="False">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Result_DoubleClick"/>
