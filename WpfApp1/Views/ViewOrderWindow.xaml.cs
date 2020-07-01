@@ -6,6 +6,8 @@ using WpfApp1.Views;
 using System.Threading.Tasks;
 using NorthwindWpf.Core.Utils;
 using NorthwindWpf.Core.Service;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace NorthwindWpf.Views
 {
@@ -46,23 +48,10 @@ namespace NorthwindWpf.Views
         {
             var order = await _orderRepo.GetByIdAsync(OrderId);
 
-            DataContext = new ViewOrderViewModel
-            {
-                OrderID = order.OrderID,
-                CustomerName = order.Customer.CompanyName,
-                OrderDate = order.OrderDate?.ToString(DATE_FORMAT) ?? "",
-                RequiredDate = order.RequiredDate?.ToString(DATE_FORMAT) ?? "",
-                ShipMethod = order.Shipper.CompanyName,
-                ShipDate = order.ShippedDate?.ToString(DATE_FORMAT) ?? "",
-                LineItems = order.Order_Details.Select(x => new ViewOrderViewModel.LineItemModel
-                {
-                    ProductName = x.Product.ProductName,
-                    UnitPrice = x.UnitPrice,
-                    Qty = x.Quantity,
-                    Discount = x.Discount,
-                    TotalPrice = OrderUtils.CalculateLineTotal(x.UnitPrice, x.Quantity, x.Discount)
-                })
-            };
+            var viewModel = Mapper.Map<ViewOrderViewModel>(order);
+            viewModel.LineItems = Mapper.Map<IEnumerable<ViewOrderViewModel.LineItemModel>>(order.Order_Details);
+
+            DataContext = viewModel;
         }
     }
 }

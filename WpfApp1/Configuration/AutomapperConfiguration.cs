@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Northwind.Data;
+using NorthwindWpf.Core;
 using NorthwindWpf.Core.Utils;
+using NorthwindWpf.ViewModels;
 using System.Linq;
 using WpfApp1.Models;
 using WpfApp1.ViewModels;
@@ -40,6 +42,21 @@ namespace WpfApp1.Configuration
                     .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice))
                     .ForMember(dest => dest.Qty, opt => opt.MapFrom(src => src.Quantity))
                     .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Discount * 100));
+
+                CreateMap<Order, ViewOrderViewModel>()
+                    .ForMember(dest => dest.OrderID, opt => opt.MapFrom(src => src.OrderID))
+                    .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.CompanyName))
+                    .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.OrderDate.HasValue ? src.OrderDate.Value.ToString(Constants.ShortDateFormat) : string.Empty))
+                    .ForMember(dest => dest.RequiredDate, opt => opt.MapFrom(src => src.RequiredDate.HasValue ? src.RequiredDate.Value.ToString(Constants.ShortDateFormat) : string.Empty))
+                    .ForMember(dest => dest.ShipMethod, opt => opt.MapFrom(src => src.Shipper.CompanyName))
+                    .ForMember(dest => dest.ShipDate, opt => opt.MapFrom(src => src.ShippedDate.HasValue ? src.ShippedDate.Value.ToString(Constants.ShortDateFormat) : string.Empty));
+
+                CreateMap<Order_Detail, ViewOrderViewModel.LineItemModel>()
+                    .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.ProductName))
+                    .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice))
+                    .ForMember(dest => dest.Qty, opt => opt.MapFrom(src => src.Quantity))
+                    .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Discount))
+                    .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => OrderUtils.CalculateLineTotal(src.UnitPrice, src.Quantity, src.Discount)));
             }
         }
 
