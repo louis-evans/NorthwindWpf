@@ -3,10 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1.Views"
         mc:Ignorable="d"
-        Title="ViewProductsWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Products" Height="450" Width="800">
+    <StackPanel VerticalAlignment="Stretch">
+        <TextBlock Name="TxtLoading">Loading...</TextBlock>
+
+        <StackPanel x:Name="StkProducts" Visibility="Hidden">
+            <CheckBox IsChecked="{Binding Path=ShowDiscontinued}" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked">Show Discontinued</CheckBox>
+            <Separator Height="15"></Separator>
+            <DataGrid VerticalAlignment="Stretch" ItemsSource="{Binding Products}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" MouseDoubleClick="OnProductSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=ID}" Header="ID" Width=".5*"/>
+                    <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" Width="3*"/>
+                    <DataGridTextColumn Binding="{Binding Path=CategoryName}" Header="Category" Width="2*"/>
+                    <DataGridTextColumn Binding="{Binding Path=UnitPrice, StringFormat=N2}" Header="Unit Price" Width="1*"/>
+                    <DataGridTextColumn Binding="{Binding Path=Discontinued}" Header="Discontinued" Width="1*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </StackPanel>
 </Window>

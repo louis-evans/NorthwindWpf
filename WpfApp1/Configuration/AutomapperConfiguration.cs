@@ -16,6 +16,7 @@ namespace WpfApp1.Configuration
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<OrderModelProfile>();
+                cfg.AddProfile<ProductModelProfile>();
                 cfg.AddProfile<ViewModelProfile>();
             });
         }
@@ -70,6 +71,19 @@ namespace WpfApp1.Configuration
                     .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.OrderDate))
                     .ForMember(dest => dest.ItemCount, opt => opt.MapFrom(src => src.Order_Details.Count()))
                     .ForMember(dest => dest.OrderTotal, opt => opt.MapFrom(src => src.Order_Details.Sum(x => OrderUtils.CalculateLineTotal(x.UnitPrice, x.Quantity, x.Discount))));
+            }
+        }
+
+        protected class ProductModelProfile : Profile
+        {
+            public ProductModelProfile()
+            {
+                CreateMap<Product, ProductLineModel>()
+                    .ForMember(dest => dest.ID, opt => opt.MapFrom(src => src.ProductID))
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ProductName))
+                    .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
+                    .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice))
+                    .ForMember(dest => dest.Discontinued, opt => opt.MapFrom(src => src.Discontinued ? "Yes": "No"));
             }
         }
     }

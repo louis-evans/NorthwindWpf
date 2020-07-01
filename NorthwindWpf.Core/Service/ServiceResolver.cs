@@ -38,7 +38,11 @@ namespace NorthwindWpf.Core.Service
             return _resolver;
         }
 
-        public void Dispose() => _kernal.Dispose();
+        public void Dispose()
+        {
+            _kernal.Dispose();
+            _resolver = null;
+        }
 
         public T Resolve<T>() => _kernal.Get<T>();
 
