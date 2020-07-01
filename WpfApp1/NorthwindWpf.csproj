@@ -99,6 +99,9 @@
     <Compile Include="Views\ViewOrdersWindow.xaml.cs">
       <DependentUpon>ViewOrdersWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewProductsWindow.xaml.cs">
+      <DependentUpon>ViewProductsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\AddItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ViewOrdersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewProductsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
