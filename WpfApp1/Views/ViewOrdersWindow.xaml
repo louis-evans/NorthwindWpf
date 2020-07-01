@@ -13,7 +13,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
             <TextBlock Name="TxtLoading" Grid.Row="0">Loading orders...</TextBlock>
-            <DataGrid Name="LstOrders" Grid.Row="0" ItemsSource="{Binding}" AutoGenerateColumns="False" MouseDoubleClick="LstOrders_MouseDoubleClick">
+            <DataGrid Name="LstOrders" Grid.Row="0" ItemsSource="{Binding Path=OrderLines}" AutoGenerateColumns="False" MouseDoubleClick="LstOrders_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=OrderID, Mode=OneWay}" Header="Id" Width="100"/>
                     <DataGridTextColumn Binding="{Binding Path=CompanyName, Mode=OneWay}" Header="Company Name" Width="250"/>

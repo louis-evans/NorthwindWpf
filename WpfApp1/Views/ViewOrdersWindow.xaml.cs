@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using NorthwindWpf.Core.Service;
-using NorthwindWpf.Core.Utils;
 using NorthwindWpf.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WpfApp1.Models;
+using WpfApp1.ViewModels;
 
 namespace NorthwindWpf.Views
 {
@@ -18,6 +18,7 @@ namespace NorthwindWpf.Views
     {
         private readonly IDictionary<int, ViewOrderWindow> _openOrderWindows;
         private readonly IOrderRepository _orderRepo;
+        private readonly ViewOrdersViewModel _viewModel;
 
         public ViewOrdersWindow()
         {
@@ -25,6 +26,9 @@ namespace NorthwindWpf.Views
             _openOrderWindows = new Dictionary<int, ViewOrderWindow>();
 
             _orderRepo = ServiceResolver.Get().Resolve<IOrderRepository>();
+
+            _viewModel = new ViewOrdersViewModel();
+            DataContext = _viewModel;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -72,17 +76,29 @@ namespace NorthwindWpf.Views
 
         private async Task LoadOrders()
         {
-            LstOrders.Visibility = Visibility.Hidden;
-            TxtLoading.Visibility = Visibility.Visible;
+            SetLoadingState(true);
             
             var orders = _orderRepo.GetAll()
                 .OrderByDescending(o => o.OrderDate)
                 .ToArrayAsync();
 
-            LstOrders.ItemsSource = Mapper.Map<IEnumerable<OrderLineModel>>(await orders);
+            _viewModel.OrderLines = Mapper.Map<IEnumerable<OrderLineModel>>(await orders);
 
-            TxtLoading.Visibility = Visibility.Hidden;
-            LstOrders.Visibility = Visibility.Visible;
+            SetLoadingState(false);
+        }
+
+        private void SetLoadingState(bool isLoading)
+        {
+            if (isLoading)
+            {
+                LstOrders.Visibility = Visibility.Hidden;
+                TxtLoading.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtLoading.Visibility = Visibility.Hidden;
+                LstOrders.Visibility = Visibility.Visible;
+            }
         }
     }
 }

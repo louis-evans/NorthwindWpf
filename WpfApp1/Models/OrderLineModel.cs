@@ -2,7 +2,7 @@
 
 namespace WpfApp1.Models
 {
-    class OrderLineModel
+    public class OrderLineModel
     {
         public int OrderID { get; set; }
         public string CompanyName { get; set; }

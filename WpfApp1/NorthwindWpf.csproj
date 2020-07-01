@@ -81,6 +81,7 @@
     <Compile Include="ViewModels\AddressSearchViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\ViewOrdersViewModel.cs" />
     <Compile Include="ViewModels\ViewOrderViewModel.cs" />
     <Compile Include="Views\AddItemWindow.xaml.cs">
       <DependentUpon>AddItemWindow.xaml</DependentUpon>
