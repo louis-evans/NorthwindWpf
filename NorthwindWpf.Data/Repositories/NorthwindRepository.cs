@@ -12,7 +12,10 @@ namespace NorthwindWpf.Data.Repositories
             NorthwindContext = new NorthwindEntities();
         }
 
-        public void Dispose()
+        /// <summary>
+        /// NOTE: If overriding, be sure to call base.Dispose()
+        /// </summary>
+        public virtual void Dispose()
         {
             NorthwindContext.Dispose();
         }
