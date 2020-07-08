@@ -54,7 +54,7 @@ namespace WpfApp1.Views
             {
                 var txtSender = (TextBox)sender;
 
-                //do this because the view model value doent get updated until the field loses focus 
+                //do this because the view model value doesn't get updated until the field loses focus 
                 //which means the value will be empty if the user types and presses enter straight away
                 if (txtSender == TxtPostCode) _viewModel.PostCode = txtSender.Text;
                 else if (txtSender == TxtNameNumber) _viewModel.NameNumber = txtSender.Text;
