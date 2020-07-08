@@ -50,7 +50,7 @@ namespace WpfApp1.Views
 
         private void OnSubmit(object sender, RoutedEventArgs e)
         {
-            if (CmbCustomers.SelectedItem != null && _viewModel.Quantity > 0)
+            if (CmbProducts.SelectedItem != null && _viewModel.Quantity > 0)
             {
                 int qty;
 
@@ -58,7 +58,7 @@ namespace WpfApp1.Views
                 {
                     Result = new AddItemResult
                     {
-                        Product = CmbCustomers.SelectedItem as Product,
+                        Product = CmbProducts.SelectedItem as Product,
                         Quantity = qty
                     };
 

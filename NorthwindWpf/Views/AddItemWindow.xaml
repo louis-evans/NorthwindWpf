@@ -14,7 +14,7 @@
     <Grid Margin="10">
         <StackPanel>
             <Label>Product:</Label>
-            <ComboBox Name="CmbCustomers" ItemsSource="{Binding Path=Products}" DisplayMemberPath="ProductName" SelectedValuePath="ProductID"></ComboBox>
+            <ComboBox Name="CmbProducts" ItemsSource="{Binding Path=Products}" DisplayMemberPath="ProductName" SelectedValuePath="ProductID"></ComboBox>
             <Label>Quatity:</Label>
             <TextBox Name="TxtQty" Text="{Binding Path=Quantity}" InputScope="Number"></TextBox>
         </StackPanel>
