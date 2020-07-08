@@ -32,6 +32,8 @@ namespace NorthwindWpf.Core.Services
             string jsonText;
 
 #if DEBUG
+            // Using a free post code lookup service with a daily limit.
+            // For debugging purposes, read results from a text file instead      
             var fileName = number == null ? "find_address_by_postcode" : "find_address_by_number";
 
             var filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Static", $"{fileName}_sample.json");

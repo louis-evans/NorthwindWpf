@@ -220,7 +220,6 @@ namespace WpfApp1.Views
 
                 _orderRepo.SaveOrder(order);
                     
-                //TODO commit order to database
                 DialogResult = true;
                 Close();
             }
