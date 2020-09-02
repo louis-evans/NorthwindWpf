@@ -21,7 +21,7 @@ namespace NorthwindWpf.Data.Repositories
 
         public Order GetById(int id) => OrderQueryBase().Single(o => o.OrderID == id);
 
-        public async Task<Order> GetByIdAsync(int id) => await OrderQueryBase().SingleAsync(o => o.OrderID == id);
+        public Task<Order> GetByIdAsync(int id) => OrderQueryBase().SingleAsync(o => o.OrderID == id);
 
         private IQueryable<Order> OrderQueryBase()
         {
